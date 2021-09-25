@@ -18,6 +18,7 @@ namespace PetCore
 
         private void ObjectPool_Recycle_GameObject(On.ObjectPool.orig_Recycle_GameObject orig, UnityEngine.GameObject obj)
         {
+            if (obj == null) return;
             if (obj.GetComponent<AlwaysDestroy>() != null)
             {
                 UnityEngine.Object.Destroy(obj);
@@ -29,6 +30,7 @@ namespace PetCore
         private void ObjectPool_Recycle_GameObject_GameObject(On.ObjectPool.orig_Recycle_GameObject_GameObject orig, 
             UnityEngine.GameObject obj, UnityEngine.GameObject prefab)
         {
+            if (obj == null) return;
             if (obj.GetComponent<AlwaysDestroy>() != null)
             {
                 UnityEngine.Object.Destroy(obj);

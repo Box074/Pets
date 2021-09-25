@@ -10,6 +10,7 @@ namespace Radiance
         {
             hm.Hit(new HitInstance()
             {
+                Source = gameObject,
                 AttackType = AttackTypes.Spell,
                 IgnoreInvulnerable = false,
                 MagnitudeMultiplier = 1,
@@ -22,7 +23,7 @@ namespace Radiance
 
         IEnumerator Destroy()
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return null;
             FSMUtility.SendEventToGameObject(gameObject, "DESTROY");
         }
     }

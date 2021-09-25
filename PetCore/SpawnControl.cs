@@ -8,6 +8,7 @@ namespace PetCore
     {
         public virtual GameObject TrySpawnObject(GameObject go, SpawnObjectFromGlobalPool state)
         {
+            Debug.Log("A SPAW " + go.name);
             return go;
         }
     }

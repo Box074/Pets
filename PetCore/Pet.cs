@@ -29,13 +29,14 @@ namespace PetCore
             Control.RegisterAction("FACE LEFT", FaceLeft);
             Control.RegisterAction("FACE RIGHT", FaceRight);
 
-            Control.RegisterAction("TELE TO HERO", TeleToHero);
+            Control.RegisterAction("TELE TO HERO", TeleToHero, () => !Control.IsActionInvoking("TELE TO HERO"));
             Control.InvokeActionOn("TELE TO HERO", () => {
-                return Vector2.Distance(transform.position, HeroController.instance.transform.position) > MaxDistance
+                return Vector2.Distance(transform.position, HeroController.instance.transform.position) > MaxDistance;
                  });
         }
         protected virtual IEnumerator TeleToHero()
         {
+            transform.position = HeroController.instance.transform.position;
             yield return null;
         }
         protected virtual IEnumerator FaceLeft()

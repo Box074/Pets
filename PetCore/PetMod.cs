@@ -37,7 +37,14 @@ namespace PetCore
             {
                 if (Pet != null)
                 {
-                    if (!Pet.activeSelf) Pet.SetActive(true);
+                    if (HeroController.instance != null)
+                    {
+                        if (!Pet.activeSelf) Pet.SetActive(true);
+                    }
+                    else
+                    {
+                        Pet.SetActive(false);
+                    }
                 }
             }
         }

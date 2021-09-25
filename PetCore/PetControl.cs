@@ -185,6 +185,7 @@ namespace PetCore
             public Func<IEnumerator> c = null;
             public Func<bool>[] test = null;
             public int invokeCount = 0;
+            public int weight = 1;
             public List<ActionInstance> instances = new List<ActionInstance>();
         }
         public class ActionInstance
