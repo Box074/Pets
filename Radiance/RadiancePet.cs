@@ -82,7 +82,8 @@ namespace Radiance
                 beamg.SetActive(false);
                 yield break;
             }
-            float angle = Vector2.Angle(transform.position, go.transform.position);
+            float angle = Mathf.Atan2(go.transform.position.y - transform.position.y,
+                go.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
             beam.transform.eulerAngles = new Vector3(0, 0, angle);
             FSMUtility.SendEventToGameObject(beam, "ANTIC");
             yield return new WaitForSeconds(0.5f);
@@ -100,6 +101,7 @@ namespace Radiance
             GameObject go = Instantiate(OrbPrefab);
             go.transform.position = transform.position;
             TargetFinder tf = go.AddComponent<TargetFinder>();
+            
             
             go.GetFSMActionOnState<ChaseObjectV2>("Chase Hero").target = target;
             go.GetFSMActionOnState<ChaseObjectV2>("Chase Hero 2").target = target;

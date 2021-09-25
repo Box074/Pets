@@ -20,6 +20,7 @@ namespace GhostSlug
         GameObject warpout = null;
         MeshRenderer renderer = null;
         bool needTele = false;
+        public override float MaxDistance => 15;
         protected override void Init()
         {
             renderer = GetComponent<MeshRenderer>();
@@ -30,6 +31,7 @@ namespace GhostSlug
             whiteslash = m.FsmVariables.FindFsmGameObject("White Flash").Value;
 
             Destroy(gameObject.LocateMyFSM("Warp messenger"));
+            Destroy(gameObject.LocateMyFSM("Distance Attack"));
             Destroy(m);
 
             Destroy(gameObject.LocateMyFSM("Attacking"));
@@ -41,6 +43,10 @@ namespace GhostSlug
 
         IEnumerator Choose()
         {
+
+            transform.SetScaleX(0.4f);
+            transform.SetScaleY(0.4f);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(UnityEngine.Random.Range(-5, 5), UnityEngine.Random.Range(-5, 5));
             yield return null;
             if (needTele)
             {
@@ -55,7 +61,7 @@ namespace GhostSlug
                 transform.position = HeroController.instance.transform.position;
                 warp.SetActive(true);
                 whiteslash.SetActive(true);
-
+                renderer.enabled = true;
                 needTele = false;
                 yield break;
             }
@@ -68,13 +74,21 @@ namespace GhostSlug
             yield return null;
             GameObject target = TargetFinder.FindTarget(transform.position);
             if (target == null) yield break;
-            for(float angle = 0; angle < 360; angle += 45)
+            int count = UnityEngine.Random.Range(1, 4);
+            float begangle = 0;
+            for (int i = 0; i < count; i++)
             {
-                GameObject go = Instantiate(spear);
-                go.transform.eulerAngles = new Vector3(0, 0, angle);
-                go.SetActive(true);
-                go.AddComponent<AlwaysDestroy>();
-                go.AddComponent<PetAttack>().AddChildren();
+                yield return new WaitForSeconds(0.5f);
+                for (float angle = begangle; angle < 360; angle += 45)
+                {
+                    GameObject go = Instantiate(spear);
+                    go.transform.position = transform.position;
+                    go.transform.eulerAngles = new Vector3(0, 0, angle);
+                    go.SetActive(true);
+                    go.AddComponent<AlwaysDestroy>();
+                    go.AddComponent<PetAttack>().AddChildren();
+                }
+                begangle += 25;
             }
             yield return new WaitForSeconds(0.75f);
         }

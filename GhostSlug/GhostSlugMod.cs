@@ -14,13 +14,13 @@ namespace GhostSlug
         {
             return new List<(string, string)>
             {
-                ("GG_Ghost_Gorb","Ghost Warrior Slug")
+                ("GG_Ghost_Gorb","Warrior/Ghost Warrior Slug")
             };
         }
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {
             Initialize();
-            SetPet<SlugPet>(preloadedObjects["GG_Ghost_Gorb"]["Ghost Warrior Slug"]);
+            SetPet<SlugPet>(preloadedObjects["GG_Ghost_Gorb"]["Warrior/Ghost Warrior Slug"]);
         }
     }
 }
