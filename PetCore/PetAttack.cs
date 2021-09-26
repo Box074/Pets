@@ -31,11 +31,13 @@ namespace PetCore
         void OnCollisionStay2D(Collision2D c) => DoTouch(c.gameObject);
         void OnTriggerEnter2D(Collider2D c) => DoTouch(c.gameObject);
         void OnTriggerStay2D(Collider2D c) => DoTouch(c.gameObject);
+		public bool Once { get; set; } = false;
+		public float ClearTime { get; set; } = 0.5f;
         public void AddChildren()
         {
             void A(GameObject root)
             {
-                if (root.GetComponent(GetType()) == null) root.AddComponent(GetType());
+                if (root.GetComponent(GetType()) == null) ((PetAttack)root.AddComponent(GetType())).Once = Once;
                 for (int i = 0; i < root.transform.childCount; i++) A(root.transform.GetChild(i).gameObject);
             }
             A(gameObject);
@@ -44,7 +46,7 @@ namespace PetCore
         void FixedUpdate()
         {
             gameObject.layer = (int)GlobalEnums.PhysLayers.HERO_ATTACK;
-            if(Time.time - c > 0.5f)
+            if(Time.time - c > ClearTime && !Once)
             {
                 c = Time.time;
                 go.Clear();

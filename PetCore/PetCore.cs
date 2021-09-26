@@ -43,9 +43,13 @@ namespace PetCore
             HutongGames.PlayMaker.Actions.SpawnObjectFromGlobalPool self)
         {
             orig(self);
-            self.storeObject.Value.AddComponent<AlwaysDestroy>();
-            self.storeObject.Value = self.Fsm.GameObject.GetComponent<SpawnControl>()?.TrySpawnObject(self.storeObject.Value, self)
-                ?? self.storeObject.Value;
+            SpawnControl sc = self.Fsm.GameObject.GetComponent<SpawnControl>();
+            if (sc != null)
+            {
+                self.storeObject.Value = sc.TrySpawnObject(self.storeObject.Value, self) ?? self.storeObject.Value;
+                self.storeObject.Value.AddComponent<AlwaysDestroy>();
+            }
+            
         }
     }
 }

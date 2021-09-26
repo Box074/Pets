@@ -46,7 +46,7 @@ namespace GhostSlug
 
             transform.SetScaleX(0.4f);
             transform.SetScaleY(0.4f);
-            GetComponent<Rigidbody2D>().velocity = new Vector2(UnityEngine.Random.Range(-5, 5), UnityEngine.Random.Range(-5, 5));
+            GetComponent<Rigidbody2D>().velocity = new Vector2(UnityEngine.Random.Range(-2, 2), UnityEngine.Random.Range(-2, 2));
             yield return null;
             if (needTele)
             {
