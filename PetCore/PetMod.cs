@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 using Modding;
 using UnityEngine;
 
@@ -12,6 +13,11 @@ namespace PetCore
     {
         public GameObject Pet { get; protected set; } = null;
         bool isEnable = false;
+		public override string GetVersion()
+		{
+			AssemblyName name = GetType().Assembly.GetName();
+			return name.Version.ToString();
+		}
         public override void Initialize()
         {
             isEnable = true;
