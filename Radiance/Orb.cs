@@ -24,7 +24,7 @@ namespace Radiance
         IEnumerator Destroy()
         {
             yield return null;
-            FSMUtility.SendEventToGameObject(gameObject, "DESTROY");
+            gameObject.LocateMyFSM("Orb Control")?.SetState("Impact");
         }
     }
 }

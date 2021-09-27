@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GhostSlug", "GhostSlug\Ghos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricMage", "ElectricMage\ElectricMage.csproj", "{B7409748-BEA0-4AC1-8237-6DF6544F33AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GhostMarkoth", "GhostMarkoth\GhostMarkoth.csproj", "{96304D88-873E-4380-993E-1A4BF225494C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{B7409748-BEA0-4AC1-8237-6DF6544F33AB}.Release|x64.Build.0 = Release|Any CPU
 		{B7409748-BEA0-4AC1-8237-6DF6544F33AB}.Release|x86.ActiveCfg = Release|Any CPU
 		{B7409748-BEA0-4AC1-8237-6DF6544F33AB}.Release|x86.Build.0 = Release|Any CPU
+		{96304D88-873E-4380-993E-1A4BF225494C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96304D88-873E-4380-993E-1A4BF225494C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96304D88-873E-4380-993E-1A4BF225494C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{96304D88-873E-4380-993E-1A4BF225494C}.Debug|x64.Build.0 = Debug|Any CPU
+		{96304D88-873E-4380-993E-1A4BF225494C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{96304D88-873E-4380-993E-1A4BF225494C}.Debug|x86.Build.0 = Debug|Any CPU
+		{96304D88-873E-4380-993E-1A4BF225494C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96304D88-873E-4380-993E-1A4BF225494C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96304D88-873E-4380-993E-1A4BF225494C}.Release|x64.ActiveCfg = Release|Any CPU
+		{96304D88-873E-4380-993E-1A4BF225494C}.Release|x64.Build.0 = Release|Any CPU
+		{96304D88-873E-4380-993E-1A4BF225494C}.Release|x86.ActiveCfg = Release|Any CPU
+		{96304D88-873E-4380-993E-1A4BF225494C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
