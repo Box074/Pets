@@ -39,6 +39,17 @@ namespace PetCore
             transform.position = HeroController.instance.transform.position;
             yield return null;
         }
+        protected virtual IEnumerator FaceHero()
+        {
+            if(HeroController.instance.transform.position.x > transform.position.x)
+            {
+                yield return Control.InvokeWait("FACE RIGHT");
+            }
+            else
+            {
+                yield return Control.InvokeWait("FACE LEFT");
+            }
+        }
         protected virtual IEnumerator FaceLeft()
         {
             transform.localScale.SetX(OrigFaceRight ? -Mathf.Abs(transform.localScale.x) : Mathf.Abs(transform.localScale.x));

@@ -32,13 +32,15 @@ namespace PetCore
             GameObject go = FindTarget(transform.position);
             foreach (var v in target) v.Value = go;
         }
-        public static GameObject FindTarget(Vector2 pos)
+        public static GameObject FindTarget(Vector2 pos, float maxDistance = float.MaxValue)
         {
             GameObject go = null;
             float d = float.MaxValue;
             foreach (var v in FindObjectsOfType<HealthManager>())
             {
-                if (v.isDead || v.hp == 0 || v.IsInvincible || v.GetComponent<Rigidbody2D>()?.isKinematic == true) continue;
+
+                if (v.isDead || v.hp == 0 || v.IsInvincible || v.GetComponent<Rigidbody2D>()?.isKinematic == true
+                    || (v.GetComponents<Collider2D>()?.All(x => x.enabled = false) ?? false)) continue;
                 float d2 = Vector2.Distance(pos, v.transform.position);
                 if (d2 < d)
                 {
@@ -46,6 +48,7 @@ namespace PetCore
                     d = d2;
                 }
             }
+            if (d > maxDistance) return null;
             return go;
         }
     }

@@ -19,8 +19,7 @@ namespace ElectricMage
         }
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {
-            Initialize();
-            SetPet<EMPet>(preloadedObjects["Room_Colosseum_Gold"]["Colosseum Manager/Waves/Wave 25/Electric Mage New"]);
+            if(Init()) SetPet<EMPet>(preloadedObjects["Room_Colosseum_Gold"]["Colosseum Manager/Waves/Wave 25/Electric Mage New"]);
         }
     }
 }

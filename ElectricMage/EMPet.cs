@@ -29,8 +29,9 @@ namespace ElectricMage
             GetComponent<Rigidbody2D>().isKinematic = true;
 
             Control.RegisterAction("ATTACK", Fire);
-            Control.RegisterAction("AC", AttackControl, () => !Control.IsActionInvoking("AC"));
-            Control.InvokeActionOn("AC", () => true);
+            Control.RegisterAction("AC", AttackControl);
+            Control.SetMaxInvoke("AC", 1);
+            Control.InvokeOnUpdate("AC");
         }
         protected override IEnumerator TeleToHero()
         {

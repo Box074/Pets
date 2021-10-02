@@ -37,7 +37,8 @@ namespace GhostSlug
             Destroy(gameObject.LocateMyFSM("Attacking"));
 
             Control.RegisterAction("CHOOSE", Choose);
-            Control.InvokeActionOn("CHOOSE", () => !Control.IsActionInvoking("CHOOSE"));
+            Control.SetMaxInvoke("CHOOSE", 1);
+            Control.InvokeOnUpdate("CHOOSE");
             Control.RegisterAction("ATTACK", Attack);
         }
 

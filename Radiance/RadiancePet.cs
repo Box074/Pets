@@ -27,10 +27,9 @@ namespace Radiance
 
             Control.RegisterAction("ORB FIRE", OrbFire);
             Control.RegisterAction("EYE BEAM", EyeBeam);
-            Control.RegisterAction("CHOOSE ATTACK", ChooseAttack, () => !Control.IsActionInvoking("CHOOSE ATTACK"));
-            Control.InvokeActionOn("CHOOSE ATTACK", () => true);
-            
-
+            Control.RegisterAction("CHOOSE ATTACK", ChooseAttack);
+            Control.SetMaxInvoke("CHOOSE ATTACK", 1);
+            Control.InvokeOnUpdate("CHOOSE ATTACK");
         }
         void OnEnable()
         {

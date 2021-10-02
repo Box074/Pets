@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 using PetCore;
 using UnityEngine;
 
-namespace GhostMarkoth
+namespace MantisHeavyFlyer
 {
-    public class MarkothMod : PetMod
+    public class MantisHeavyFlyer : PetMod
     {
         public override List<(string, string)> GetPreloadNames()
         {
             return new List<(string, string)>
             {
-                ("GG_Ghost_Markoth","Warrior/Ghost Warrior Markoth")
+                ("Deepnest_43","Mantis Heavy Flyer")
             };
         }
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {
-            if(Init()) SetPet<MarkothPet>(preloadedObjects["GG_Ghost_Markoth"]["Warrior/Ghost Warrior Markoth"]);
+            if (Init()) SetPet<MHFPet>(preloadedObjects["Deepnest_43"]["Mantis Heavy Flyer"]);
         }
     }
 }

@@ -22,6 +22,34 @@ namespace PetCore
                 test = test
             };
         }
+
+        public int GetMaxInvoke(string name)
+        {
+            if(actions.TryGetValue(name,out var v))
+            {
+                return v.maxInvoke;
+            }
+            return 0;
+        }
+        public void SetMaxInvoke(string name, int max)
+        {
+            if (actions.TryGetValue(name, out var v))
+            {
+                v.maxInvoke = max;
+            }
+        }
+        public void InvokeOnUpdate(string name)
+        {
+            InvokeActionOn(name, _ATrue);
+        }
+        public void UnsafeInvoke(string name)
+        {
+            if (actions.TryGetValue(name, out var v))
+            {
+                StartCoroutine(_invoke(v));
+            }
+        }
+        private bool _ATrue() => true;
         public void NamedAction(string orig,string n)
         {
             if(actions.TryGetValue(orig,out var v))
@@ -35,6 +63,7 @@ namespace PetCore
             {
                 foreach(var v2 in v.instances)
                 {
+                    v2.Stop();
                     StopCoroutine(v2.coroutine);
                 }
                 v.instances.Clear();
@@ -43,12 +72,13 @@ namespace PetCore
         public void StopAction(ActionInstance instance)
         {
             StopCoroutine(instance.coroutine);
-            instance.action.instances.Remove(instance);
+            instance.Stop();
         }
         public void InvokeAction(string name)
         {
             if(actions.TryGetValue(name,out var v))
             {
+                if (v.invokeCount >= v.maxInvoke) return;
                 if (v.test != null && v.test.Length>0)
                 {
                     if (!v.test.All(x => x())) return;
@@ -76,6 +106,7 @@ namespace PetCore
         {
             if (actions.TryGetValue(name, out var v))
             {
+                if (v.invokeCount >= v.maxInvoke) yield break;
                 if (v.test != null && v.test.Length > 0)
                 {
                     if (!v.test.All(x => x())) yield break;
@@ -90,20 +121,25 @@ namespace PetCore
                 while (v.invokeCount > 0) yield return null;
             }
         }
+        public IEnumerator WaitAction(ActionInstance instance)
+        {
+            while (!instance.isEnd) yield return null;
+        }
         IEnumerator _invoke(Action action)
         {
             action.invokeCount++;
             invokeCount++;
+            ActionInstance instance = null;
             try
             {
                 Coroutine coroutine = StartCoroutine(action.c());
-                ActionInstance instance = new ActionInstance(action, coroutine);
+                instance = new ActionInstance(action, coroutine);
                 action.instances.Add(instance);
                 yield return coroutine;
-                action.instances.Remove(instance);
             }
             finally
             {
+                instance?.Stop();
                 action.invokeCount--;
                 invokeCount--;
             }
@@ -173,6 +209,7 @@ namespace PetCore
             DontDestroyOnLoad(gameObject);
             foreach (var v in actions)
             {
+                foreach (var v2 in v.Value.instances) v2.Stop();
                 v.Value.instances.Clear();
                 v.Value.invokeCount = 0;
             }
@@ -185,6 +222,7 @@ namespace PetCore
             public Func<IEnumerator> c = null;
             public Func<bool>[] test = null;
             public int invokeCount = 0;
+            public int maxInvoke = int.MaxValue;
             public int weight = 1;
             public List<ActionInstance> instances = new List<ActionInstance>();
         }
@@ -197,6 +235,7 @@ namespace PetCore
                 guid = Guid.NewGuid().ToString();
             }
             internal Action action = null;
+            public bool isEnd = false;
             public Coroutine coroutine = null;
             public readonly string guid = "";
             public override bool Equals(object obj)
@@ -211,6 +250,11 @@ namespace PetCore
                 {
                     return false;
                 }
+            }
+            public void Stop()
+            {
+                action.instances.Remove(this);
+                isEnd = true;
             }
             public override string ToString()
             {

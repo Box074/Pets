@@ -17,11 +17,10 @@ namespace GhostSlug
                 ("GG_Ghost_Gorb","Warrior/Ghost Warrior Slug")
             };
         }
-		
+
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {
-            Initialize();
-            SetPet<SlugPet>(preloadedObjects["GG_Ghost_Gorb"]["Warrior/Ghost Warrior Slug"]);
+            if (Init()) SetPet<SlugPet>(preloadedObjects["GG_Ghost_Gorb"]["Warrior/Ghost Warrior Slug"]);
         }
     }
 }

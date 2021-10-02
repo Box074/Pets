@@ -13,16 +13,20 @@ namespace PetCore
     {
         public GameObject Pet { get; protected set; } = null;
         bool isEnable = false;
+        public bool FirstInit { get; private set; } = true;
 		public override string GetVersion()
 		{
 			AssemblyName name = GetType().Assembly.GetName();
 			return name.Version.ToString();
 		}
-        public override void Initialize()
+        public bool Init()
         {
+            bool r = FirstInit;
+            FirstInit = false;
             isEnable = true;
             ModHooks.HeroUpdateHook -= ModHooks_HeroUpdateHook;
             ModHooks.HeroUpdateHook += ModHooks_HeroUpdateHook;
+            return r;
         }
         protected void SetPet(GameObject go,Type control)
         {

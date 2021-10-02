@@ -19,9 +19,7 @@ namespace Radiance
         }
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {
-            Initialize();
-            SetPet<RadiancePet>(preloadedObjects["GG_Radiance"]["Boss Control/Absolute Radiance"]);
-            
+            if(Init()) SetPet<RadiancePet>(preloadedObjects["GG_Radiance"]["Boss Control/Absolute Radiance"]);
         }
     }
 }
